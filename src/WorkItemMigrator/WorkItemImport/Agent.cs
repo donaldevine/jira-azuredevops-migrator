@@ -430,8 +430,15 @@ namespace WorkItemImport
 
                     if (fieldValue != null)
                     {
-                        var field = wi.Fields[fieldRef];
-                        field.Value = fieldValue;
+                        if (wi.Fields.Contains(fieldRef))
+                        {
+                            var field = wi.Fields[fieldRef];
+                            field.Value = fieldValue;
+                        } else
+                        {
+                            string message = string.Format("Work Item '{0}' is missing field '{1}'.", wi.Title, fieldRef);
+                            Logger.Log(LogLevel.Warning, message);
+                        }                        
                     }
                 }
                 catch (Exception ex)
