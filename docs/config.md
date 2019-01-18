@@ -27,6 +27,7 @@ The migration configuration file is defined in a json file with the properties d
 |**log-level**|False|string|Debug, Info, Warning, Error or Critical. Default = "Debug".|
 |**attachment-folder**|True|string|Location to store attachments.|
 |**user-mapping-file**|False|string|Name of user mapping file. If no specific path is set the program expects it to be located in the "workspace" folder.|
+|**domain-mapping**|False|string|Allows mapping of user domain globally, if Azure Devops domain is different to Jira domain. Example: "domain-mapping": "jiradomain.com=devopsdomain.com"|
 |**base-area-path**|False|string|Area path. Default is empty.|
 |**base-iteration-path**|False|string|Iteration path. Default is empty.|
 |**ignore-failed-links**|False|boolean|Set to True if failed links are to be ignored. Default = False.|
