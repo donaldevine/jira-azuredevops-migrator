@@ -17,7 +17,7 @@ namespace JiraExport
         private readonly Dictionary<string, FieldMapping<JiraRevision>> _fieldMappingsPerType;
         private readonly ConfigJson _config;
 
-        public JiraMapper(JiraProvider jiraProvider, ConfigJson config) : base(jiraProvider?.Settings?.UserMappingFile)
+        public JiraMapper(JiraProvider jiraProvider, ConfigJson config) : base(jiraProvider?.Settings?.UserMappingFile, jiraProvider?.Settings?.DomainMapping)
         {
             _jiraProvider = jiraProvider;
             _config = config;

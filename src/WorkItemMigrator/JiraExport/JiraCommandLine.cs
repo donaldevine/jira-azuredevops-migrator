@@ -93,7 +93,8 @@ namespace JiraExport
                     BatchSize = config.BatchSize,
                     UserMappingFile = config.UserMappingFile != null ? Path.Combine(migrationWorkspace, config.UserMappingFile) : string.Empty,
                     AttachmentsDir = Path.Combine(migrationWorkspace, config.AttachmentsFolder),
-                    JQL = config.Query
+                    JQL = config.Query,
+                    DomainMapping = config.DomainMapping
                 };
 
                 JiraProvider jiraProvider = JiraProvider.Initialize(jiraSettings);
