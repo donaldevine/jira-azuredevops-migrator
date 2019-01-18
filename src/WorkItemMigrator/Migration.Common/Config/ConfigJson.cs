@@ -35,6 +35,9 @@ namespace Common.Config
         [JsonProperty(PropertyName = "user-mapping-file", Required = Required.AllowNull)]
         public string UserMappingFile { get; set; }
 
+        [JsonProperty(PropertyName = "domain-mapping", Required = Required.AllowNull)]
+        public string DomainMapping { get; set; }
+
         [JsonProperty(PropertyName = "base-area-path")]
         public string BaseAreaPath { get; set; } = "";
 

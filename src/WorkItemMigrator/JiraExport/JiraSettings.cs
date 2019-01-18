@@ -15,9 +15,12 @@ namespace JiraExport
         public string EpicLinkField { get; internal set; }
         public string SprintField { get; internal set; } 
         public string UserMappingFile { get; internal set; }
+        public string DomainMapping { get; internal set; }
         public int BatchSize { get; internal set; }
         public string AttachmentsDir { get; internal set; }
         public string JQL { get; internal set; }
+
+        
 
         public JiraSettings(string userID, string pass, string url, string project)
         {

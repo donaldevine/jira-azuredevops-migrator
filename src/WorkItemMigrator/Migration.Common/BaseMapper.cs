@@ -8,8 +8,10 @@ namespace Migration.Common
 {
     public class BaseMapper<TRevision> where TRevision : ISourceRevision
     {
-        public BaseMapper(string userMappingPath)
+        private string _domainMapping;
+        public BaseMapper(string userMappingPath, string domainMapping)
         {
+            _domainMapping = domainMapping;
             ParseUserMappings(userMappingPath);
         }
 
@@ -44,10 +46,39 @@ namespace Migration.Common
                 return defaultUser;
             }
             else
-            {
-                Logger.Log(LogLevel.Debug, $"Could not find user {sourceUser} identity. Using original identity.");
-                UserMapping.Add(sourceUser, sourceUser);
-                return sourceUser;
+            {                
+                if (!string.IsNullOrEmpty(_domainMapping))
+                {
+                    Logger.Log(LogLevel.Debug, $"Domain Mapping for {sourceUser} identity.");
+                    var domainMap = _domainMapping.Split('=');
+
+                    if (domainMap.Length == 2 && domainMap[0].Length > 0 && domainMap[1].Length > 0)
+                    {
+                        string sourceDomain = domainMap[0].Trim();
+                        string destDomain = domainMap[1].Trim();
+
+                        var destUser = sourceUser.Replace(sourceDomain, destDomain);
+                        
+                        Logger.Log(LogLevel.Debug, $"Identity Domain Mapped for {sourceUser} to {destUser}.");
+
+                        UserMapping.Add(sourceUser, destUser);
+
+                        return destUser;
+                    }
+                    else
+                    {
+                        Logger.Log(LogLevel.Debug, $"Could not find user {sourceUser} identity. Using original identity.");
+                        UserMapping.Add(sourceUser, sourceUser);
+                        return sourceUser;
+                    }
+
+                }
+                else
+                {
+                    Logger.Log(LogLevel.Debug, $"Could not find user {sourceUser} identity. Using original identity.");
+                    UserMapping.Add(sourceUser, sourceUser);
+                    return sourceUser;
+                }                
             }
         }
 
